@@ -60,3 +60,10 @@ Route::group(['prefix' => 'admin', 'where' => ['id' => '[0-9]+'] , 'middleware' 
         Route::put('{id}/update',['as' => 'clientes.update', 'uses' => 'ClientesController@update']);
     });
 });
+Route::group(['prefix' => 'perfil' , 'middleware' => 'auth'], function(){
+    Route::get('/',['as' => 'perfil', 'uses' => 'PerfilController@index']);
+    Route::get('/modificar-dados',['as' => 'perfil.modificar-dados', 'uses' => 'PerfilController@modificarDados']);
+    Route::put('/update-dados',['as' => 'perfil.update-dados', 'uses' => 'PerfilController@updateDados']);
+    Route::get('/modificar-senha',['as' => 'perfil.modificar-senha', 'uses' => 'PerfilController@modificarSenha']);
+    Route::put('/update-senha',['as' => 'perfil.update-senha', 'uses' => 'PerfilController@updateSenha']);
+});

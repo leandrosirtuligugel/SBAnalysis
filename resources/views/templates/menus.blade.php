@@ -17,7 +17,7 @@
                 <i class="fa fa-user fa-fw"></i> {{Auth::user()->nomecompleto}}  <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> Meus Dados</a>
+                <li><a href="{{ route('perfil') }}"><i class="fa fa-user fa-fw"></i> Meus Dados</a>
                 </li>
                 <li class="divider"></li>
                 <li><a href="{{ url('logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

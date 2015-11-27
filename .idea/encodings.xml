@@ -8,6 +8,8 @@
     <file url="file://$PROJECT_DIR$/resources/views/emails/confirmacao_cadastro.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/gestores/create.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/gestores/edit.blade.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/perfil/modificar-dados.blade.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resources/views/perfil/modificar-senha.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/templates/index.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/templates/menus.blade.php" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/resources/views/usuarios/create.blade.php" charset="UTF-8" />
