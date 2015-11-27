@@ -61,7 +61,7 @@
 <script src="{{ asset('public/assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('public/assets/js/jquery.maskedinput.js') }}"></script>
 <!-- Custom Theme JavaScript -->
-<script src="{{ asset('public/assets/js/sb-admin-2.js') }}"></script>
+<script src="{{ asset('public/assets/dist/js/sb-admin-2.js') }}"></script>
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -94,9 +94,14 @@
         $('#titularcpf').mask('999.999.999-99');
 
     });
+    $('table.display').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    });
+    $('[data-toggle="modal"][title]').tooltip();
 </script>
 <!-- Modal -->
-<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal fade" id="SBAnalysisModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content"></div>
     </div>

@@ -23,8 +23,7 @@ class UsuariosController extends Controller
     public function index()
     {
         $usuarios = $this->UserModel->all();
-        echo $a = bcrypt('qwe123');
-        dd($usuarios);
+        return view('usuarios.index', compact('usuarios'));
     }
 
 
@@ -46,18 +45,6 @@ class UsuariosController extends Controller
 
         return redirect()->route('usuarios');
 
-    }
-
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
     }
 
     public function confirmacaoConta($token){

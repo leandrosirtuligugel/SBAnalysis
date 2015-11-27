@@ -1,0 +1,73 @@
+CREATE TABLE usuario
+(
+  codigousuario serial NOT NULL,
+  nomecompleto character varying(40) NOT NULL,
+  email character varying(40) NOT NULL,
+  senha character varying(256) NOT NULL,
+  usuarioredmineusuario character varying(40) NOT NULL,
+  senharedmineusuario character varying(256) NOT NULL,
+  chaveacessoapiredmineusuario character varying(40) NOT NULL,
+  remember_token character varying(256),
+  tokenativacao character varying(256) NOT NULL,
+  CONSTRAINT usuario_pkey PRIMARY KEY (codigousuario)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usuario
+  OWNER TO postgres;
+
+INSERT INTO usuario (codigousuario, nomecompleto, email, senha, usuarioredmineusuario, senharedmineusuario, chaveacessoapiredmineusuario, remember_token, tokenativacao) VALUES (1, 'Sky Bug Analysis', 'sky@skyinformarmatica.com.br', '$2y$10$dib15IJfD6Duf9TDQG6UtOPyrs6vcYonpMqHRb1LLxs4Q1sCeEPWS', 'skybuganalysis', 'qwe123', 'DSG324DSFJHKI54ER34FS342FDYJ', 'OxURgzURaxldJq61JY1PXroAYhnsH60lADWT7y5ZTb26pmNjopinJtOBqomD', 'e30e704bb2d651b0bea0e4743800b7e2b0060538');
+  
+CREATE TABLE usuarioresetarsenha
+(
+  email character varying(256) NOT NULL,
+  token character varying(256) NOT NULL,
+  created_at timestamp without time zone NOT NULL
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE usuarioresetarsenha
+  OWNER TO postgres;
+
+-- Index: ind_usuarioresetarsenha_1
+
+-- DROP INDEX ind_usuarioresetarsenha_1;
+
+CREATE UNIQUE INDEX ind_usuarioresetarsenha_1
+  ON usuarioresetarsenha
+  USING btree
+  (email COLLATE pg_catalog."default");
+
+-- Index: ind_usuarioresetarsenha_2
+
+-- DROP INDEX ind_usuarioresetarsenha_2;
+
+CREATE UNIQUE INDEX ind_usuarioresetarsenha_2
+  ON usuarioresetarsenha
+  USING btree
+  (token COLLATE pg_catalog."default");
+
+CREATE TABLE cliente
+(
+  codigocliente serial NOT NULL,
+  codigoskyupdate integer NOT NULL,
+  codigocns integer,
+  razaosocial character varying(100) NOT NULL,
+  nomeoficial character varying(50) NOT NULL,
+  cpfcnpjoficial character varying(14),
+  endereco character varying(120) NOT NULL,
+  cidade character varying(50) NOT NULL,
+  uf character varying(2),
+  cep character varying(9),
+  telefone character varying(15),
+  CONSTRAINT cliente_pkey PRIMARY KEY (codigocliente),
+  CONSTRAINT cliente_codigocliente_check CHECK (codigocliente > 0),
+  CONSTRAINT cliente_codigoskyupdate_check CHECK (codigoskyupdate > 0)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE cliente
+  OWNER TO postgres;

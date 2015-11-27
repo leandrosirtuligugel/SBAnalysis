@@ -87,7 +87,7 @@ class LoginController extends AuthController
             return $this->authenticated($request, Auth::user());
         }
 
-        return redirect()->intended('admin');
+        return redirect()->intended('admin/dashboard');
     }
 
     /**
