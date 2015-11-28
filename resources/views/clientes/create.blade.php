@@ -68,24 +68,32 @@
 							{!! Form::text('telefone', '', ['class' => 'form-control']) !!}
 						</div>
 						<div class="form-group">
-							{!! Form::label('codigosistema', 'Sistema:') !!}
-							{!! Form::select('codigosistema', $sistemas, '', ['class' => 'form-control']) !!}
+							{!! Form::label('codigosistema', 'Sistemas:') !!}
+							@foreach($sistemas as $row)
+								<div class="checkbox">
+									<label>
+										{!! Form::checkbox('codigosistema[]', $row->codigosistema) !!}
+										{{ $row->nomesistema }}
+									</label>
+								</div>
+								<div class="form-group">
+									{!! Form::label('contratoemvigor', 'Contrato em Vigor:') !!}
+									<div class="radio-inline">
+										<label>
+											{!! Form::radio('contratoemvigor['.$row->codigosistema.']', 'T', false) !!}
+											Ativo
+										</label>
+									</div>
+									<div class="radio-inline">
+										<label>
+											{!! Form::radio('contratoemvigor['.$row->codigosistema.']', 'F', true) !!}
+											Inativo
+										</label>
+									</div>
+								</div>
+							@endforeach
+
 						</div>
-							<div class="form-group">
-								{!! Form::label('contratoemvigor', 'Contrato em Vigor:') !!}
-								<div class="radio">
-									<label>
-										{!! Form::radio('contratoemvigor', 'T', true) !!}
-										Ativo
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-										{!! Form::radio('contratoemvigor', 'F', false) !!}
-										Inativo
-									</label>
-								</div>
-							</div>
 					</div>
 					<div class="panel-footer">
 						<div class="form-group text-center">

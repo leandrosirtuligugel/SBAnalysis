@@ -14,6 +14,6 @@ class ClienteModel extends Model
 
     public function clientesistema(){
 
-    	return $this->hasOne('SBAnalysis\Models\ClienteSistemaModel', 'codigocliente');
+    	return $this->hasMany('SBAnalysis\Models\ClienteSistemaModel', 'codigocliente');
     }
 }

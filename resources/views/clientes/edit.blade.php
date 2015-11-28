@@ -69,24 +69,43 @@
 							{!! Form::text('telefone', $cliente->telefone, ['class' => 'form-control']) !!}
 						</div>
 						<div class="form-group">
-							{!! Form::label('codigosistema', 'Sistema:') !!}
-							{!! Form::select('codigosistema', $sistemas, $cliente->clientesistema->codigosistema, ['class' => 'form-control']) !!}
+							{!! Form::label('codigosistema', 'Sistemas:') !!}
+							@foreach($sistemas as $row)
+								<div class="checkbox">
+									<?php $c = false; ?>
+									<?php $v = false; ?>
+									@foreach($cliente->clientesistema as $k)
+										@if($k->codigosistema == $row->codigosistema)
+												<?php $c = true; ?>
+												<?php $v = $k->contratoemvigor; ?>
+
+										@endif
+
+									@endforeach
+									<label>
+										{{$v}}
+										{!! Form::checkbox('codigosistema[]', $row->codigosistema, $c) !!}
+										{{ $row->nomesistema }}
+									</label>
+								</div>
+								<div class="form-group">
+									{!! Form::label('contratoemvigor', 'Contrato em Vigor:') !!}
+									<div class="radio-inline">
+										<label>
+											{!! Form::radio('contratoemvigor['.$row->codigosistema.']', 'T', $v == 'T' ? true : false) !!}
+											Ativo
+										</label>
+									</div>
+									<div class="radio-inline">
+										<label>
+											{!! Form::radio('contratoemvigor['.$row->codigosistema.']', 'F', $v != 'T' ? true : false) !!}
+											Inativo
+										</label>
+									</div>
+								</div>
+							@endforeach
+
 						</div>
-							<div class="form-group">
-								{!! Form::label('contratoemvigor', 'Contrato em Vigor:') !!}
-								<div class="radio">
-									<label>
-										{!! Form::radio('contratoemvigor', 'T', $cliente->clientesistema->contratoemvigor == 'T' ? true : false) !!}
-										Ativo
-									</label>
-								</div>
-								<div class="radio">
-									<label>
-										{!! Form::radio('contratoemvigor', 'F', $cliente->clientesistema->contratoemvigor == 'F' ? true : false) !!}
-										Inativo
-									</label>
-								</div>
-							</div>
 					</div>
 					<div class="panel-footer">
 						<div class="form-group text-center">

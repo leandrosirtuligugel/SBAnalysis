@@ -31,7 +31,7 @@ class ClientesController extends Controller
 
     public function create()
     {
-        $sistemas = $this->sistemaModel->lists('nomesistema', 'codigosistema');
+        $sistemas = $this->sistemaModel->all();
         return view('clientes.create', compact('sistemas'));
     }
 
@@ -39,12 +39,19 @@ class ClientesController extends Controller
     public function store(Requests\ClienteRequest $request)
     {
         $input = $request->all();
+        //dd($input);
         $cliente = $this->clienteModel->fill($input);
         $cliente->save();
+        $codigocliente = $cliente->codigocliente;
 
-        $data = ['codigosistema' => $input['codigosistema'], 'contratoemvigor' => $input['contratoemvigor'], 'codigocliente' => $cliente->codigocliente];
-        $clienteSistema = $this->clienteSistemaModel->fill($data);
-        $clienteSistema->save();
+        $clienteSistema = $this->clienteSistemaModel;
+        for($i=0; $i < count($input['codigosistema']);$i++){
+
+            $codigosistema = $input['codigosistema'][$i];
+            $contratoemvigor = $input['contratoemvigor'][$codigosistema];
+            $clienteSistema->firstOrCreate(['codigosistema' => $codigosistema, 'contratoemvigor' => $contratoemvigor, 'codigocliente' =>  $codigocliente]);
+
+        }
 
         return redirect()->route('clientes');
 
@@ -53,7 +60,8 @@ class ClientesController extends Controller
     public function edit($codigocliente){
 
         $cliente = $this->clienteModel->find($codigocliente);
-        $sistemas = $this->sistemaModel->lists('nomesistema', 'codigosistema');
+        //dd($cliente->clientesistema);
+        $sistemas = $this->sistemaModel->all();
         return view('clientes.edit', compact('cliente', 'sistemas'));
     }
 
@@ -63,9 +71,16 @@ class ClientesController extends Controller
 
         $cliente = $this->clienteModel->find($codigocliente);
         $cliente->update($input);
-        $codigoclientesistema = $cliente->clientesistema->codigoclientesistema;
-        $data = ['codigosistema' => $input['codigosistema'], 'contratoemvigor' => $input['contratoemvigor'], 'codigocliente' => $cliente->codigocliente];
-        $this->clienteSistemaModel->find($codigoclientesistema)->update($data);
+        $codigocliente = $cliente->codigocliente;
+        $this->clienteSistemaModel->where('codigocliente', $codigocliente)->delete();
+        $clienteSistema = $this->clienteSistemaModel;
+        for($i=0; $i < count($input['codigosistema']);$i++){
+
+            $codigosistema = $input['codigosistema'][$i];
+            $contratoemvigor = $input['contratoemvigor'][$codigosistema];
+            $clienteSistema->firstOrCreate(['codigosistema' => $codigosistema, 'contratoemvigor' => $contratoemvigor, 'codigocliente' =>  $codigocliente]);
+
+        }
 
         return redirect()->route('clientes');
     }
